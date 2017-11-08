@@ -1,33 +1,19 @@
+NAME=veltra/cloudsql-proxy
+
 .PHONY: all build
+
+include .env
 
 all: build
 
 build: ## Build docker containers
-	@docker-compose build cloudsql-proxy
-
-cli: ## Run cli
-	@docker-compose run --rm cloudsql-proxy bash
+	@docker build -t $(NAME) .
 
 start: build ## Start docker containers.
-	@docker-compose up -d
+	docker run -d --name cloudsqlproxy --env-file .env -p 3306:3306 $(NAME)
 
 stop: ## Stop docker containers.
-	@docker-compose stop
-
-status: ## Status docker containers.
-	@docker-compose ps
-
-restart: ## Restart docker containers.
-restart: stop start
-
-clean: ## Claen docker containers and clean this project
-clean: stop
-	@docker-compose rm --force
-	@find . -name \*.pyc -delete
-	@find . -name \*.mo -delete
-
-tail: ## Tail logs for docker containers
-	@docker-compose logs -f cloudsql-proxy
+	@docker rm -f cloudsqlproxy
 
 test: start
-	@docker run --rm --network container:cloudsqlproxy appropriate/curl --retry 10 --retry-connrefused --head telnet://cloudsqlproxy:3306
+	@docker run --rm --network container:cloudsqlproxy appropriate/curl --retry 10 --retry-connrefused --head telnet://127.0.0.1:3306
