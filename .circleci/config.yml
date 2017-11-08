@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/docker-cloudsql-proxy
+    docker:
+      - image: docker:17.07.0-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker:
+          reusable: true
+          exclusive: true
+      - run:
+          name: Install bash
+          command: |
+            apk add --no-cache bash curl make
+      - run:
+          name: Build
+          command: |
+            make build
+      - run:
+          name: Run tests
+          command: |
+            make test

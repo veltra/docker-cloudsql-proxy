@@ -1,4 +1,4 @@
-# docker-cloudsql-proxy
+# docker-cloudsql-proxy [![CircleCI](https://circleci.com/gh/veltra/docker-cloudsql-proxy/tree/master.svg?style=svg&circle-token=b56a532d454fb59757a1d589c50e8e912f500dd2)](https://circleci.com/gh/veltra/docker-cloudsql-proxy/tree/master)
 
 [Cloud SQL Proxy](https://github.com/GoogleCloudPlatform/cloudsql-proxy) with Docker
 
