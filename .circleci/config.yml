@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Install bash
           command: |
-            apk add --no-cache bash curl make
+            apk add --no-cache bash curl make docker-compose
       - run:
           name: Build
           command: |
