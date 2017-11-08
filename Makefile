@@ -28,3 +28,6 @@ clean: stop
 
 tail: ## Tail logs for docker containers
 	@docker-compose logs -f cloudsql-proxy
+
+test: start
+	@docker run --rm --network container:cloudsqlproxy appropriate/curl --retry 10 --retry-connrefused --head telnet://cloudsqlproxy:3306
